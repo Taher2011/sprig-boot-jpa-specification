@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import com.techgen.entity.Product;
 import com.techgen.model.ProductDTO;
 import com.techgen.repository.ProductRepository;
-import com.techgen.util.ProductSpecification;
+import com.techgen.specification.ProductSpecification;
 
 @Service
 public class ProductService {

@@ -1,4 +1,4 @@
-package com.techgen.util;
+package com.techgen.specification;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
