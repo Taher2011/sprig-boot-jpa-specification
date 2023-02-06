@@ -1,0 +1,87 @@
+{
+	"info": {
+		"_postman_id": "5bf8173f-da1a-4235-8802-2c20ed5de2d7",
+		"name": "Product",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "5863778"
+	},
+	"item": [
+		{
+			"name": "Get All Products",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8083/product/?sort-by=purchasedDate&sort-order=desc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"product",
+						""
+					],
+					"query": [
+						{
+							"key": "sort-by",
+							"value": "purchasedDate"
+						},
+						{
+							"key": "sort-order",
+							"value": "desc"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Products By Filter",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"description\": \"Good\",\r\n    \"status\": \"OUT_OF_STOCK\",\r\n    \"name\": \"TShirt\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8083/product/filter?page-no=0&page-size=5&sort-by=purchasedDate&sort-order=asc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"product",
+						"filter"
+					],
+					"query": [
+						{
+							"key": "page-no",
+							"value": "0"
+						},
+						{
+							"key": "page-size",
+							"value": "5"
+						},
+						{
+							"key": "sort-by",
+							"value": "purchasedDate"
+						},
+						{
+							"key": "sort-order",
+							"value": "asc"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
