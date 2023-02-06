@@ -1,0 +1,1 @@
+# sprig-boot-jpa-specification
