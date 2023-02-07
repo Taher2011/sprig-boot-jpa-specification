@@ -37,6 +37,65 @@
 			"response": []
 		},
 		{
+			"name": "Get Customer Inner Join Product",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"product_name\": \"Trousers\",\r\n    \"customer_name\": \"Ashish\",\r\n    \"customer_type\": \"Quaterly\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8083/product/customer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"product",
+						"customer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Product Inner Join Customer",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"product_name\": \"TShirt\",\r\n    \"customer_name\": \"Taher\",\r\n    \"customer_type\": \"Permanent\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8083/product/customer/join",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"product",
+						"customer",
+						"join"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Get Products By Filter",
 			"request": {
 				"method": "POST",

@@ -56,8 +56,26 @@ public class ProductController {
 			@RequestParam(value = "page-no", defaultValue = "0", required = false) int pageNumber,
 			@RequestParam(value = "page-size", defaultValue = "10", required = false) int pageSize,
 			@PathVariable(name = "product-id") long productId) {
-		ResponseDTO<List<CustomerDTO>> customers = productService.getCustomersAssociatedWithProduct(pageNumber, pageSize, productId);
+		ResponseDTO<List<CustomerDTO>> customers = productService.getCustomersAssociatedWithProduct(pageNumber,
+				pageSize, productId);
 		return new ResponseEntity<>(customers, HttpStatus.OK);
 	}
 
+	@PostMapping("/customer")
+	public ResponseEntity<ResponseDTO<List<CustomerDTO>>> getCustomerJoinProduct(
+			@RequestParam(value = "page-no", defaultValue = "0", required = false) int pageNumber,
+			@RequestParam(value = "page-size", defaultValue = "10", required = false) int pageSize,
+			@RequestBody Map<String, String> filterValues) {
+		ResponseDTO<List<CustomerDTO>> customersProduct = productService.getCustomerJoinProduct(pageNumber, pageSize, filterValues);
+		return new ResponseEntity<>(customersProduct, HttpStatus.OK);
+	}
+	
+	@PostMapping("/customer/join")
+	public ResponseEntity<ResponseDTO<List<ProductDTO>>> getProductJoinCustomer(
+			@RequestParam(value = "page-no", defaultValue = "0", required = false) int pageNumber,
+			@RequestParam(value = "page-size", defaultValue = "10", required = false) int pageSize,
+			@RequestBody Map<String, String> filterValues) {
+		ResponseDTO<List<ProductDTO>> productCustomers = productService.getProductJoinCustomer(pageNumber, pageSize, filterValues);
+		return new ResponseEntity<>(productCustomers, HttpStatus.OK);
+	}
 }

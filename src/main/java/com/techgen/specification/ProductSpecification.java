@@ -9,13 +9,18 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.hibernate.annotations.FetchMode;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 
+import com.techgen.entity.Customer;
 import com.techgen.entity.Product;
 import com.techgen.model.ProductStatus;
 
 import jakarta.persistence.criteria.CriteriaBuilder.In;
+import jakarta.persistence.criteria.Fetch;
+import jakarta.persistence.criteria.Join;
+import jakarta.persistence.criteria.JoinType;
 import jakarta.persistence.criteria.Predicate;
 
 @Component
@@ -91,6 +96,44 @@ public class ProductSpecification {
 		Date today = Calendar.getInstance().getTime();
 		String currentDate = dateFormat.format(today);
 		return LocalDateTime.parse(currentDate);
+	}
+
+	public static Specification<Customer> getCustomerJoinProductSpecification(Map<String, String> filterValues) {
+		return (root, query, criteriaBuilder) -> {
+			Join<Product, Customer> customerJoinProduct = root.join("product", JoinType.INNER);
+			List<Predicate> predicates = new ArrayList<>();
+			filterValues.forEach((key, value) -> {
+				if (key.equalsIgnoreCase("customer_name")) {
+					predicates.add(criteriaBuilder.equal(root.get("name"), value));
+				}
+				if (key.equalsIgnoreCase("customer_type")) {
+					predicates.add(criteriaBuilder.equal(root.get("type"), value));
+				}
+				if (key.equalsIgnoreCase("product_name")) {
+					predicates.add(criteriaBuilder.equal(customerJoinProduct.get("name"), value));
+				}
+			});
+			return query.where(criteriaBuilder.and(predicates.toArray(new Predicate[0]))).getRestriction();
+		};
+	}
+
+	public static Specification<Product> getProductJoinCustomerSpecification(Map<String, String> filterValues) {
+		return (root, query, criteriaBuilder) -> {
+			Join<Product, Customer> productJoinCustomer = root.join("customers", JoinType.INNER);
+			List<Predicate> predicates = new ArrayList<>();
+			filterValues.forEach((key, value) -> {
+				if (key.equalsIgnoreCase("product_name")) {
+					predicates.add(criteriaBuilder.equal(root.get("name"), value));
+				}
+				if (key.equalsIgnoreCase("customer_name")) {
+					predicates.add(criteriaBuilder.equal(productJoinCustomer.get("name"), value));
+				}
+				if (key.equalsIgnoreCase("customer_type")) {
+					predicates.add(criteriaBuilder.equal(productJoinCustomer.get("type"), value));
+				}
+			});
+			return query.where(criteriaBuilder.and(predicates.toArray(new Predicate[0]))).getRestriction();
+		};
 	}
 
 }
