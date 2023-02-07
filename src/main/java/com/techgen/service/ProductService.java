@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -80,7 +80,16 @@ public class ProductService {
 
 	public ResponseDTO<List<CustomerDTO>> getCustomersAssociatedWithProduct(int pageNo, int pageSize, long productId) {
 		Pageable pageable = PageRequest.of(pageNo, pageSize);
+		
 		Page<Customer> pageCustomers = customerRepository.findByProductId(productId, pageable);
+		
+		/* 1 Above and 2 Below queries are same */
+		
+		// Page<Customer> pageCustomers = customerRepository.findByProductId1(productId, pageable);
+		
+		// Optional<Product> product = productRepository.findById(productId);
+		// Page<Customer> pageCustomers = customerRepository.findByProductId2(product.get(), pageable);
+		
 		List<CustomerDTO> customerDTOs = createCustomerDtos(pageCustomers.stream().toList());
 		return new ResponseDTO<>(pageCustomers.getNumber(), pageCustomers.getSize(), pageCustomers.getTotalPages(),
 				pageCustomers.getTotalElements(), true, "Success", customerDTOs);
