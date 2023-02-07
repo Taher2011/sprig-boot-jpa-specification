@@ -7,7 +7,7 @@
 	},
 	"item": [
 		{
-			"name": "Get All Products",
+			"name": "Get Products",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -78,6 +78,26 @@
 							"key": "sort-order",
 							"value": "asc"
 						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Customers Associated With Product",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8083/product/5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"product",
+						"5"
 					]
 				}
 			},

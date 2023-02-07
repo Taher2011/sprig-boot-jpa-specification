@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,40 +17,28 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonInclude(Include.NON_NULL)
 public class ProductDTO {
 
-	private int pageNo;
-	private int pageSize;
-	private long totalElements;
-	private int totalPages;
-	private boolean last;
-	private List<Product> products;
-	
+	private String name;
 
-	@Setter
-    @Getter
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public class Product {
-		
-		private String name;
+	private String description;
 
-		private String description;
+	private String brand;
 
-		private String brand;
+	private String color;
 
-		private String color;
+	private String type;
 
-		private String type;
+	private Float price;
 
-		private float price;
+	private Boolean isAvailable;
 
-		private boolean isAvailable;
+	@CreationTimestamp
+	private LocalDateTime purchasedDate;
 
-		@CreationTimestamp
-		private LocalDateTime purchasedDate;
+	private String status;
 
-		private String status;
-    }
+	private List<CustomerDTO> customers;
 
 }

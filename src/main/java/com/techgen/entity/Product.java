@@ -1,11 +1,13 @@
 package com.techgen.entity;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 import org.hibernate.annotations.CreationTimestamp;
 
 import com.techgen.model.ProductStatus;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -13,6 +15,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -55,6 +58,9 @@ public class Product {
 	@Column(name = "product_status")
 	private ProductStatus productStatus;
 
+	@OneToMany(mappedBy = "product", cascade = CascadeType.PERSIST)
+	private Set<Customer> customers;
+
 	public Product(String name, String description, String brand, String color, String type, float price,
 			boolean isAvailable, LocalDateTime purchasedDate, ProductStatus productStatus) {
 		super();
@@ -67,6 +73,11 @@ public class Product {
 		this.isAvailable = isAvailable;
 		this.purchasedDate = purchasedDate;
 		this.productStatus = productStatus;
+	}
+
+	public void addProduct(Customer customer) {
+		customers.add(customer);
+		customer.setProduct(this);
 	}
 
 }
