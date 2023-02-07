@@ -83,7 +83,7 @@ public class ProductService {
 		
 		Page<Customer> pageCustomers = customerRepository.findByProductId(productId, pageable);
 		
-		/* 1 Above and 2 Below queries are same */
+		/*  Above(findByProductId) and Below(findByProductId1,findByProductId2) queries are same */
 		
 		// Page<Customer> pageCustomers = customerRepository.findByProductId1(productId, pageable);
 		
